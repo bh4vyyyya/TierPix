@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TierPix Brutalist - Fast Image Tier List Rater with custom keyword search and instant flat rating buttons.">
+    <title>TierPix — Image Tier Rater</title>
+    <!-- Favicon SVG -->
+    <link rel="icon" type="image/svg+xml" href="logo.svg">
+    <!-- Google Fonts: Space Grotesk & IBM Plex Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,600;0,700;1,400&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- FX Canvas for Brutalist Pop Particles -->
+    <canvas id="fx-canvas" class="fx-canvas"></canvas>
+
+    <!-- Main Fixed Viewport Layout (Non-Scrollable) -->
+    <div class="app-viewport">
+        <!-- LEFT PANEL: Fully Static Image Arena -->
+        <aside class="left-panel" id="left-panel">
+            <!-- Brand Banner (Yellow Top Bar) -->
+            <div class="brand-banner">
+                <h1 class="brand-title">
+                    <img src="logo.svg" alt="TierPix Logo" class="brand-logo-svg" />
+                    TIERPIX
+                </h1>
+                <!-- Brutalist 1:1 Icon-Only GitHub Button (Kept Untouched) -->
+                <a href="https://github.com" target="_blank" class="brutal-btn github-btn-icon" title="View Source on GitHub">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Keywords Input Section -->
+            <div class="keywords-box">
+                <div class="kw-input-row">
+                    <span class="kw-icon">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square">
+                            <circle cx="11" cy="11" r="7"/>
+                            <path d="M16 16l5 5"/>
+                        </svg>
+                    </span>
+                    <input type="text" id="keyword-input" class="brutal-kw-input" placeholder="Type keywords (e.g. anime, neon, space)..." />
+                    <button id="btn-add-kw" class="brutal-btn small yellow">+ ADD</button>
+                </div>
+                <div class="active-kw-chips" id="active-kw-chips">
+                    <span class="kw-placeholder">No keywords set (Openverse & Wikimedia stream)</span>
+                </div>
+            </div>
+
+            <!-- Static Image Stage -->
+            <div class="image-stage-box" id="image-stage">
+                <!-- Special Mode Overlays (Chaos / Abyss / Mood) -->
+                <div id="stage-event-banner" class="stage-event-banner hidden">
+                    <span id="event-banner-text">⚠️ CHAOS ROUND</span>
+                </div>
+
+                <!-- Hidden Secret Collectible Trigger -->
+                <div id="secret-collectible-badge" class="secret-collectible-badge hidden">
+                    👾 SECRET OBJECT DISCOVERED!
+                </div>
+
+                <div class="loader-overlay" id="loader">
+                    <div class="brutal-spinner"></div>
+                    <p class="loader-text">PRELOADING MATCHING IMAGE...</p>
+                </div>
+
+                <!-- Big Stage Rating Stamp Overlay -->
+                <div id="stage-stamp-overlay" class="stage-stamp-overlay">S</div>
+
+                <img id="random-image" src="" alt="Random internet image" class="stage-image hidden" draggable="true" title="Drag image to any tier row below to rate!" />
+            </div>
+
+            <!-- Left Controls: Skip & Compact Icon Pair -->
+            <div class="left-actions">
+                <button id="btn-skip" class="brutal-btn btn-skip" title="Skip image (Space)">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"/>
+                    </svg>
+                    SKIP IMAGE
+                </button>
+                <div class="compact-icon-pair">
+                    <button id="btn-copy-url" class="brutal-btn icon-only" title="Copy Image URL">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square">
+                            <rect x="9" y="9" width="12" height="12" rx="2"/>
+                            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                        </svg>
+                    </button>
+                    <a id="btn-open-original" href="#" target="_blank" class="brutal-btn icon-only" title="Open Full URL">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square">
+                            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Stats & Meta Bar Footer (Fixed 2-Row Alignment Grid) -->
+            <div class="left-stats-footer">
+                <div class="footer-row footer-row-top">
+                    <div class="stat-box">
+                        <span class="stat-lbl">TOTAL RATED:</span>
+                        <span class="stat-num" id="stat-total">0</span>
+                    </div>
+                    <div class="meta-badges-group">
+                        <span class="meta-tag" id="img-source-tag">OPENVERSE STREAM</span>
+                        <span class="meta-id" id="img-id-tag">#OPV-000</span>
+                        <a id="img-license-tag" href="#" target="_blank" class="meta-license" title="View License Details">CC BY 2.0</a>
+                        <span class="meta-rarity rarity-common" id="stage-rarity-badge">COMMON</span>
+                    </div>
+                </div>
+                <div class="footer-row footer-row-bottom">
+                    <div class="footer-toggles">
+                        <button id="btn-collectibles-toggle" class="collectibles-toggle-btn" title="View Secret Collectibles">
+                            👾 ITEMS (<span id="collectibles-count">0</span>)
+                        </button>
+                        <!-- 1:1 Icon-Only Sound Toggle -->
+                        <button id="btn-sound-toggle" class="sound-toggle-btn icon-only-btn" title="Toggle Audio (Mute/Unmute)">
+                            <span id="sound-icon-holder" style="display:inline-flex; align-items:center; justify-content:center;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <!-- 1:1 Icon-Only Theme Toggle -->
+                        <button id="btn-theme-toggle" class="theme-toggle-btn icon-only-btn" title="Toggle Dark/Light Mode">
+                            <span id="theme-icon-holder" style="display:inline-flex; align-items:center; justify-content:center;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- INTERACTIVE BRUTALIST PANEL RESIZER DIVIDER -->
+        <div id="panel-resizer" class="panel-resizer" title="Drag to resize image & tier panels">
+            <div class="resizer-handle"></div>
+        </div>
+
+        <!-- RIGHT PANEL: Rating Box & Tier Chart -->
+        <main class="right-panel">
+            <!-- Top Rating Section (Flat 6 Large Tier Buttons) -->
+            <section class="rating-section">
+                <div class="rating-header-bar">
+                    <h2 class="rating-title">RATING ARENA</h2>
+                    <span class="rating-hint">CLICK TIER TO RATE (OR PRESS 1-6 / S,A,B,C,D,F)</span>
+                </div>
+
+                <!-- Flat Always-Visible Tier Buttons Row -->
+                <div class="rating-buttons-row">
+                    <button class="item-color tier-btn tier-s" data-tier="S" title="S Tier (Hotkey: S or 1)">
+                        <span class="tier-letter">S</span>
+                        <span class="key-hint">S / 1</span>
+                    </button>
+                    <button class="item-color tier-btn tier-a" data-tier="A" title="A Tier (Hotkey: A or 2)">
+                        <span class="tier-letter">A</span>
+                        <span class="key-hint">A / 2</span>
+                    </button>
+                    <button class="item-color tier-btn tier-b" data-tier="B" title="B Tier (Hotkey: B or 3)">
+                        <span class="tier-letter">B</span>
+                        <span class="key-hint">B / 3</span>
+                    </button>
+                    <button class="item-color tier-btn tier-c" data-tier="C" title="C Tier (Hotkey: C or 4)">
+                        <span class="tier-letter">C</span>
+                        <span class="key-hint">C / 4</span>
+                    </button>
+                    <button class="item-color tier-btn tier-d" data-tier="D" title="D Tier (Hotkey: D or 5)">
+                        <span class="tier-letter">D</span>
+                        <span class="key-hint">D / 5</span>
+                    </button>
+                    <button class="item-color tier-btn tier-f" data-tier="F" title="F Tier (Hotkey: F or 6)">
+                        <span class="tier-letter">F</span>
+                        <span class="key-hint">F / 6</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Bottom Tier Chart Container -->
+            <section class="tier-chart-section">
+                <div class="chart-header-bar">
+                    <h2 class="chart-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#facc15" stroke="#000" stroke-width="2" style="vertical-align: sub; margin-right: 4px;">
+                            <path d="M6 2h12v3a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5V2zm0 3H3.5a2.5 2.5 0 0 0 0 5H6V5zm12 0h2.5a2.5 2.5 0 0 1 0 5H18V5zM12 10v4m-4 4h8m-4-4a4 4 0 0 1-4 4v2h8v-2a4 4 0 0 1-4-4z"/>
+                        </svg>
+                        TIER CHART
+                    </h2>
+                    <div class="chart-actions">
+                        <button id="btn-export" class="brutal-btn small yellow">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                                <path d="M17 21v-8H7v8M7 3v5h8"/>
+                            </svg>
+                            EXPORT
+                        </button>
+                        <button id="btn-clear-all" class="brutal-btn small red">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                            </svg>
+                            RESET
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Brutalist Tier Chart Grid -->
+                <div class="tier-chart-grid" id="tier-chart-grid">
+                    <!-- S Tier -->
+                    <div class="chart-row" data-tier-row="S">
+                        <div class="row-label tier-s">S</div>
+                        <div class="row-content" id="tier-content-S" data-tier="S">
+                            <div class="empty-placeholder">DROP OR RATE S TIER IMAGES HERE</div>
+                        </div>
+                    </div>
+
+                    <!-- A Tier -->
+                    <div class="chart-row" data-tier-row="A">
+                        <div class="row-label tier-a">A</div>
+                        <div class="row-content" id="tier-content-A" data-tier="A">
+                            <div class="empty-placeholder">DROP OR RATE A TIER IMAGES HERE</div>
+                        </div>
+                    </div>
+
+                    <!-- B Tier -->
+                    <div class="chart-row" data-tier-row="B">
+                        <div class="row-label tier-b">B</div>
+                        <div class="row-content" id="tier-content-B" data-tier="B">
+                            <div class="empty-placeholder">DROP OR RATE B TIER IMAGES HERE</div>
+                        </div>
+                    </div>
+
+                    <!-- C Tier -->
+                    <div class="chart-row" data-tier-row="C">
+                        <div class="row-label tier-c">C</div>
+                        <div class="row-content" id="tier-content-C" data-tier="C">
+                            <div class="empty-placeholder">DROP OR RATE C TIER IMAGES HERE</div>
+                        </div>
+                    </div>
+
+                    <!-- D Tier -->
+                    <div class="chart-row" data-tier-row="D">
+                        <div class="row-label tier-d">D</div>
+                        <div class="row-content" id="tier-content-D" data-tier="D">
+                            <div class="empty-placeholder">DROP OR RATE D TIER IMAGES HERE</div>
+                        </div>
+                    </div>
+
+                    <!-- F Tier -->
+                    <div class="chart-row" data-tier-row="F">
+                        <div class="row-label tier-f">F</div>
+                        <div class="row-content" id="tier-content-F" data-tier="F">
+                            <div class="empty-placeholder">DROP OR RATE F TIER IMAGES HERE</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Image Preview Modal -->
+    <div id="preview-modal" class="brutal-modal hidden">
+        <div class="brutal-modal-card">
+            <button id="modal-close" class="modal-close-x">&times;</button>
+            <div class="modal-body-layout">
+                <img id="modal-img" src="" alt="Enlarged Tier Image" />
+                <div class="modal-meta-box">
+                    <div class="modal-badge-row">
+                        <span id="modal-tier-badge" class="modal-tier-badge">S TIER</span>
+                        <div class="rerate-box">
+                            <span>RE-RANK:</span>
+                            <div class="rerate-btn-group" id="modal-rerate-btns">
+                                <button class="r-btn s" data-rerate="S">S</button>
+                                <button class="r-btn a" data-rerate="A">A</button>
+                                <button class="r-btn b" data-rerate="B">B</button>
+                                <button class="r-btn c" data-rerate="C">C</button>
+                                <button class="r-btn d" data-rerate="D">D</button>
+                                <button class="r-btn f" data-rerate="F">F</button>
+                            </div>
+                        </div>
+                    </div>
+                    <p id="modal-date" class="modal-date">RATED ON: --</p>
+                    <p id="modal-license" class="modal-license">LICENSE: <a id="modal-license-link" href="#" target="_blank" class="license-link">CC BY 2.0</a></p>
+                    <p id="modal-url-text" class="modal-url"></p>
+                    <div class="modal-footer-btns">
+                        <a id="modal-external-link" href="#" target="_blank" class="brutal-btn small">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/>
+                            </svg>
+                            OPEN ORIGINAL
+                        </a>
+                        <button id="modal-delete-btn" class="brutal-btn small red">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                            </svg>
+                            REMOVE IMAGE
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Collectibles Drawer Modal -->
+    <div id="collectibles-modal" class="brutal-modal hidden">
+        <div class="brutal-modal-card">
+            <button id="collectibles-modal-close" class="modal-close-x">&times;</button>
+            <h2 class="rating-title" style="margin-bottom: 12px;">👾 UNLOCKED COLLECTIBLES</h2>
+            <div id="collectibles-grid" class="collectibles-grid">
+                <div class="empty-placeholder">NO SECRET OBJECTS FOUND YET! KEEP RATING IMAGES TO UNCOVER HIDDEN ITEMS.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
