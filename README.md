@@ -22,6 +22,11 @@ it fetches random open-licensed images from Openverse & Wikimedia Commons so you
 
 ##  license
 
-uses open-licensed images from [Openverse](https://openverse.org/) and [Wikimedia Commons](https://commons.wikimedia.org/).
+MIT License (this code) — feel free to fork it, break it, and build cool stuff!
 
-MIT License - feel free to fork it, break it, and build cool stuff!
+Images are fetched live and keep their original licenses from [Openverse](https://openverse.org/) and [Wikimedia Commons](https://commons.wikimedia.org/).
+
+##
+<br>
+<sub>Assisted by AI</sub>
+
