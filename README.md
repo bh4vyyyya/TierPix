@@ -19,6 +19,10 @@ it fetches random open-licensed images from Openverse & Wikimedia Commons so you
 - **export**: download your tier list as json
 
 
+## Preview
+
+![Image](demo.png)
+
 
 ##  license
 
