@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TierPix — Disclaimer</title>
+    <!-- Favicon SVG -->
+    <link rel="icon" type="image/svg+xml" href="logo.svg">
+    <!-- Google Fonts: Space Grotesk & IBM Plex Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,600;0,700;1,400&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Override Non-Scrollable App Viewport Rules from styles.css */
+        html, body {
+            width: 100% !important;
+            min-height: 100vh !important;
+            height: auto !important;
+            overflow-x: hidden !important;
+            overflow-y: auto !important;
+            background-color: #f0e8d8 !important;
+            padding: 16px !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: flex-start !important;
+        }
+
+        .disclaimer-viewport {
+            width: 100%;
+            max-width: 950px;
+            margin: 0 auto;
+            padding-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* Top Bar Banner Box Shadow Matching */
+        .brand-banner {
+            box-shadow: 4px 4px 0 #000000 !important;
+            border: 4px solid #000000 !important;
+            border-radius: 10px !important;
+        }
+
+        /* Main White Card Box (Auto-Height Encloses All Text) */
+        .disclaimer-main-card {
+            background: #ffffff;
+            border: 4px solid #000000;
+            border-radius: 10px;
+            box-shadow: 4px 4px 0 #000000;
+            padding: 28px 32px 36px 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            height: auto !important;
+            min-height: unset !important;
+        }
+
+        .disclaimer-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #000000;
+            padding-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .disclaimer-heading {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 900;
+            font-size: 26px;
+            letter-spacing: -0.5px;
+            color: #000000;
+        }
+
+        .disclaimer-sub {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            font-weight: 600;
+            color: #555555;
+            margin-top: 2px;
+        }
+
+        /* Direct Text Container */
+        .disclaimer-content-group {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        .disclaimer-group {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            border-bottom: 2px dashed #e5e5e5;
+            padding-bottom: 22px;
+        }
+
+        .disclaimer-group:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        /* Hanging Indent Bullet Point Alignment */
+        .disclaimer-group p {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 1.65;
+            color: #111111;
+            padding-left: 22px;
+            text-indent: -22px;
+            margin: 0;
+        }
+
+        .disclaimer-group p a {
+            color: #000000;
+            font-weight: 700;
+            text-decoration: underline;
+            text-decoration-thickness: 2px;
+            transition: color 0.15s ease;
+        }
+
+        .disclaimer-group p a:hover {
+            color: #d97706;
+        }
+
+        .nav-back-btn {
+            align-self: flex-start;
+        }
+
+        @media (max-width: 600px) {
+            html, body {
+                padding: 10px 8px !important;
+            }
+            .disclaimer-main-card {
+                padding: 20px 16px;
+                gap: 18px;
+            }
+            .disclaimer-heading {
+                font-size: 20px;
+            }
+            .disclaimer-group p {
+                font-size: 14px;
+                padding-left: 18px;
+                text-indent: -18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="disclaimer-viewport">
+        
+        <!-- Top Bar: Color-Changing RGB Banner (Matches index.html) -->
+        <div class="brand-banner">
+            <h1 class="brand-title">
+                <img src="logo.svg" alt="TierPix Logo" class="brand-logo-svg" />
+                TIERPIX
+            </h1>
+            <!-- 1:1 Square GitHub Icon Button -->
+            <a href="https://github.com/bh4vyyyya/TierPix" target="_blank" class="brutal-btn github-btn-icon" title="View Source on GitHub">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                </svg>
+            </a>
+        </div>
+
+        <!-- Main Content White Card (Auto-Height Encloses All Text) -->
+        <main class="disclaimer-main-card">
+            <div class="disclaimer-title-row">
+                <div>
+                    <h2 class="disclaimer-heading">DISCLAIMER & LEGAL ATTRIBUTION</h2>
+                    <p class="disclaimer-sub">TERMS OF USE & IMAGE LICENSING STATEMENT</p>
+                </div>
+                <a href="index.html" class="brutal-btn small yellow nav-back-btn">← BACK TO APP</a>
+            </div>
+
+            <!-- Plain Text Paragraphs -->
+            <div class="disclaimer-content-group">
+                <div class="disclaimer-group">
+                    <p>• Images displayed in TierPix are fetched live from <a href="https://openverse.org/" target="_blank" rel="noopener noreferrer">Openverse</a> and <a href="https://commons.wikimedia.org/" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a>. TierPix does not host, store, or claim ownership of any of these images.</p>
+                    <p>• All images retain their original licenses as provided by their respective sources, including but not limited to Creative Commons (CC0, CC BY, CC BY-SA, etc.) and public domain designations. It is your responsibility to review the license of any image before reusing, redistributing, or modifying it outside of TierPix.</p>
+                    <p>• Attribution requirements vary by license and by source. Where attribution is required, please refer to the original image page on Openverse or Wikimedia Commons for the correct creator credit, license type, and any additional terms.</p>
+                    <p>• TierPix relies on third-party APIs to fetch this content and has no control over the accuracy, availability, or licensing metadata provided by these platforms. Image availability may change or break if the source removes or updates the content.</p>
+                    <p>• If you believe an image is displayed in error or infringes on your rights, please raise an issue in this repository or contact the original source platform directly for takedown requests.</p>
+                </div>
+
+                <div class="disclaimer-group">
+                    <p>• TierPix is a personal side project built for fun and learning. It is provided "as is" without warranty of any kind, express or implied.</p>
+                    <p>• No guarantees are made regarding functionality, accuracy, or availability. Bugs, downtime, and breaking changes may occur without notice.</p>
+                    <p>• Any images or data used with TierPix are handled as described in this repository. No responsibility is taken for data loss, so please back up anything important before use.</p>
+                    <p>• Use of this project is entirely at your own risk. The author is not liable for any damages, direct or indirect, arising from the use or misuse of TierPix.</p>
+                    <p>• TierPix does not claim ownership of any user-uploaded images or content. You are solely responsible for ensuring you have the rights to any images you upload or tier.</p>
+                    <p>• This project is not intended for commercial or mission-critical use. It is a hobby project, not a maintained product, though contributions, forks, and feedback are always welcome.</p>
+                </div>
+            </div>
+        </main>
+
+    </div>
+</body>
+</html>
