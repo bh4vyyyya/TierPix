@@ -642,7 +642,8 @@ h1, h2, h3, h4, .brand-title, .brand-sub, .loader-text, .brutal-btn,
 
 /* 1:1 Icon-Only Square Toggle Buttons */
 .sound-toggle-btn.icon-only-btn,
-.theme-toggle-btn.icon-only-btn {
+.theme-toggle-btn.icon-only-btn,
+.disclaimer-toggle-btn.icon-only-btn {
     width: 32px !important;
     height: 32px !important;
     padding: 0 !important;
@@ -654,6 +655,7 @@ h1, h2, h3, h4, .brand-title, .brand-sub, .loader-text, .brutal-btn,
     box-shadow: 2px 2px 0 #000 !important;
     cursor: pointer !important;
     transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+    text-decoration: none !important;
 }
 
 .sound-toggle-btn.icon-only-btn {
@@ -666,8 +668,14 @@ h1, h2, h3, h4, .brand-title, .brand-sub, .loader-text, .brutal-btn,
     color: #fff !important;
 }
 
+.disclaimer-toggle-btn.icon-only-btn {
+    background: #e11d48 !important;
+    color: #fff !important;
+}
+
 .sound-toggle-btn.icon-only-btn:hover,
-.theme-toggle-btn.icon-only-btn:hover {
+.theme-toggle-btn.icon-only-btn:hover,
+.disclaimer-toggle-btn.icon-only-btn:hover {
     transform: translate(-1px, -1px) !important;
     box-shadow: 3px 3px 0 #000 !important;
 }
