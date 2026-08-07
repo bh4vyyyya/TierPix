@@ -12,37 +12,49 @@
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,600;0,700;1,400&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Custom Layout Overrides for Disclaimer Page */
-        body {
-            width: 100vw;
-            min-height: 100vh;
-            overflow-x: hidden;
-            overflow-y: auto;
-            background-color: #f0e8d8;
-            padding: 16px;
-            display: flex;
-            justify-content: center;
+        /* Override Non-Scrollable App Viewport Rules from styles.css */
+        html, body {
+            width: 100% !important;
+            min-height: 100vh !important;
+            height: auto !important;
+            overflow-x: hidden !important;
+            overflow-y: auto !important;
+            background-color: #f0e8d8 !important;
+            padding: 16px !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: flex-start !important;
         }
 
         .disclaimer-viewport {
             width: 100%;
             max-width: 950px;
+            margin: 0 auto;
+            padding-bottom: 40px;
             display: flex;
             flex-direction: column;
             gap: 16px;
         }
 
-        /* Large Main White Card Box (Matches Wireframe) */
+        /* Top Bar Banner Box Shadow Matching */
+        .brand-banner {
+            box-shadow: 4px 4px 0 #000000 !important;
+            border: 4px solid #000000 !important;
+            border-radius: 10px !important;
+        }
+
+        /* Main White Card Box (Auto-Height Encloses All Text) */
         .disclaimer-main-card {
             background: #ffffff;
             border: 4px solid #000000;
-            border-radius: 12px;
-            box-shadow: 6px 6px 0 #000000;
-            padding: 32px;
+            border-radius: 10px;
+            box-shadow: 4px 4px 0 #000000;
+            padding: 28px 32px 36px 32px;
             display: flex;
             flex-direction: column;
             gap: 24px;
-            min-height: 70vh;
+            height: auto !important;
+            min-height: unset !important;
         }
 
         .disclaimer-title-row {
@@ -58,8 +70,9 @@
         .disclaimer-heading {
             font-family: 'Space Grotesk', sans-serif;
             font-weight: 900;
-            font-size: 28px;
+            font-size: 26px;
             letter-spacing: -0.5px;
+            color: #000000;
         }
 
         .disclaimer-sub {
@@ -67,46 +80,51 @@
             font-size: 13px;
             font-weight: 600;
             color: #555555;
+            margin-top: 2px;
         }
 
-        .disclaimer-block {
-            background: #fff8eb;
-            border: 3px solid #000000;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 4px 4px 0 #000000;
+        /* Direct Text Container */
+        .disclaimer-content-group {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 22px;
         }
 
-        .block-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 900;
-            font-size: 18px;
+        .disclaimer-group {
             display: flex;
-            align-items: center;
-            gap: 8px;
+            flex-direction: column;
+            gap: 14px;
+            border-bottom: 2px dashed #e5e5e5;
+            padding-bottom: 22px;
         }
 
-        .block-text {
-            font-size: 14px;
-            line-height: 1.6;
+        .disclaimer-group:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
         }
 
-        .block-text p + p {
-            margin-top: 10px;
+        /* Hanging Indent Bullet Point Alignment */
+        .disclaimer-group p {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 1.65;
+            color: #111111;
+            padding-left: 22px;
+            text-indent: -22px;
+            margin: 0;
         }
 
-        .meta-pill {
-            font-family: 'IBM Plex Mono', monospace;
-            font-weight: 700;
-            font-size: 12px;
-            background: #fef3c7;
+        .disclaimer-group p a {
             color: #000000;
-            border: 2px solid #000000;
-            padding: 2px 8px;
-            border-radius: 4px;
+            font-weight: 700;
+            text-decoration: underline;
+            text-decoration-thickness: 2px;
+            transition: color 0.15s ease;
+        }
+
+        .disclaimer-group p a:hover {
+            color: #d97706;
         }
 
         .nav-back-btn {
@@ -114,15 +132,20 @@
         }
 
         @media (max-width: 600px) {
-            body {
-                padding: 10px 8px;
+            html, body {
+                padding: 10px 8px !important;
             }
             .disclaimer-main-card {
-                padding: 18px;
-                gap: 16px;
+                padding: 20px 16px;
+                gap: 18px;
             }
             .disclaimer-heading {
-                font-size: 22px;
+                font-size: 20px;
+            }
+            .disclaimer-group p {
+                font-size: 14px;
+                padding-left: 18px;
+                text-indent: -18px;
             }
         }
     </style>
@@ -144,7 +167,7 @@
             </a>
         </div>
 
-        <!-- Main Content White Card (Matches Wireframe) -->
+        <!-- Main Content White Card (Auto-Height Encloses All Text) -->
         <main class="disclaimer-main-card">
             <div class="disclaimer-title-row">
                 <div>
@@ -154,29 +177,23 @@
                 <a href="index.html" class="brutal-btn small yellow nav-back-btn">← BACK TO APP</a>
             </div>
 
-            <!-- Disclaimer Section 1 -->
-            <div class="disclaimer-block">
-                <h3 class="block-title">🖼️ Image Sourcing & Open Licensing</h3>
-                <div class="block-text">
-                    <p>All images stream dynamically via public open-source APIs: <span class="meta-pill">Openverse API</span> and <span class="meta-pill">Wikimedia Commons API</span>.</p>
-                    <p>TierPix only queries media released under verifiable open licenses (Creative Commons, Public Domain, CC0). Creator attributions and license URLs are linked directly per image.</p>
+            <!-- Plain Text Paragraphs -->
+            <div class="disclaimer-content-group">
+                <div class="disclaimer-group">
+                    <p>• Images displayed in TierPix are fetched live from <a href="https://openverse.org/" target="_blank" rel="noopener noreferrer">Openverse</a> and <a href="https://commons.wikimedia.org/" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a>. TierPix does not host, store, or claim ownership of any of these images.</p>
+                    <p>• All images retain their original licenses as provided by their respective sources, including but not limited to Creative Commons (CC0, CC BY, CC BY-SA, etc.) and public domain designations. It is your responsibility to review the license of any image before reusing, redistributing, or modifying it outside of TierPix.</p>
+                    <p>• Attribution requirements vary by license and by source. Where attribution is required, please refer to the original image page on Openverse or Wikimedia Commons for the correct creator credit, license type, and any additional terms.</p>
+                    <p>• TierPix relies on third-party APIs to fetch this content and has no control over the accuracy, availability, or licensing metadata provided by these platforms. Image availability may change or break if the source removes or updates the content.</p>
+                    <p>• If you believe an image is displayed in error or infringes on your rights, please raise an issue in this repository or contact the original source platform directly for takedown requests.</p>
                 </div>
-            </div>
 
-            <!-- Disclaimer Section 2 -->
-            <div class="disclaimer-block">
-                <h3 class="block-title">⚖️ Fair Use & Educational Purpose</h3>
-                <div class="block-text">
-                    <p>TierPix functions as a non-commercial interactive content discovery, image evaluation, and taxonomy research engine.</p>
-                    <p>Thumbnails rendered on tier lists are displayed for transformative evaluation and sorting purposes under Fair Use guidelines.</p>
-                </div>
-            </div>
-
-            <!-- Disclaimer Section 3 -->
-            <div class="disclaimer-block">
-                <h3 class="block-title">🔒 Privacy & Data Storage</h3>
-                <div class="block-text">
-                    <p>TierPix does not host, upload, or store image files on external servers. All user ratings and tier chart preferences are stored strictly in your browser's local storage (<span class="meta-pill">localStorage</span>).</p>
+                <div class="disclaimer-group">
+                    <p>• TierPix is a personal side project built for fun and learning. It is provided "as is" without warranty of any kind, express or implied.</p>
+                    <p>• No guarantees are made regarding functionality, accuracy, or availability. Bugs, downtime, and breaking changes may occur without notice.</p>
+                    <p>• Any images or data used with TierPix are handled as described in this repository. No responsibility is taken for data loss, so please back up anything important before use.</p>
+                    <p>• Use of this project is entirely at your own risk. The author is not liable for any damages, direct or indirect, arising from the use or misuse of TierPix.</p>
+                    <p>• TierPix does not claim ownership of any user-uploaded images or content. You are solely responsible for ensuring you have the rights to any images you upload or tier.</p>
+                    <p>• This project is not intended for commercial or mission-critical use. It is a hobby project, not a maintained product, though contributions, forks, and feedback are always welcome.</p>
                 </div>
             </div>
         </main>
